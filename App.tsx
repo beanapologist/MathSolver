@@ -13,7 +13,7 @@ import {
   X, ExternalLink, BookOpen, ChevronDown, ChevronUp, Globe, 
   ScrollText, Trash2, Clock, CheckCircle2, ListChecks, Info,
   Lightbulb, FileSearch, Quote, FileDown, Activity, AlertTriangle, Check, Upload,
-  Copy
+  Copy, Atom, DraftingCompass, Workflow, Cpu, Layers
 } from 'lucide-react';
 
 interface HistoryItem {
@@ -54,6 +54,7 @@ const App: React.FC = () => {
   const [showBench, setShowBench] = useState(false);
   const [showHistory, setShowHistory] = useState(false);
   const [showDiagnostics, setShowDiagnostics] = useState(false);
+  const [showAbout, setShowAbout] = useState(false);
   const [diagnosticReport, setDiagnosticReport] = useState<TestSuiteReport | null>(null);
   const [isTesting, setIsTesting] = useState(false);
   const [showReasoning, setShowReasoning] = useState(true);
@@ -127,6 +128,7 @@ const App: React.FC = () => {
     setShowDiagnostics(true);
     setShowBench(false);
     setShowHistory(false);
+    setShowAbout(false);
     addLogs([{ timestamp: new Date().toLocaleTimeString(), type: 'info', message: 'Initiating Axiom Protocol stress tests...' }]);
     const report = await testSuiteRef.current.runDiagnostics();
     setDiagnosticReport(report);
@@ -296,16 +298,22 @@ const App: React.FC = () => {
               <Activity className="w-4 h-4" /> Diagnostics
             </button>
             <button 
-              onClick={() => { setShowBench(!showBench); setShowDiagnostics(false); setShowHistory(false); }}
+              onClick={() => { setShowBench(!showBench); setShowDiagnostics(false); setShowHistory(false); setShowAbout(false); }}
               className={`px-5 py-2.5 text-[11px] font-black uppercase tracking-widest rounded-xl transition-all flex items-center gap-3 ${showBench ? 'bg-yellow-500 text-black shadow-[0_0_20px_rgba(234,179,8,0.3)]' : 'text-gray-500 hover:text-white'}`}
             >
               <BookOpen className="w-4 h-4" /> Benchmark
             </button>
             <button 
-              onClick={() => { setShowHistory(!showHistory); setShowDiagnostics(false); setShowBench(false); }}
+              onClick={() => { setShowHistory(!showHistory); setShowDiagnostics(false); setShowBench(false); setShowAbout(false); }}
               className={`px-5 py-2.5 text-[11px] font-black uppercase tracking-widest rounded-xl transition-all flex items-center gap-3 ${showHistory ? 'bg-blue-500 text-black shadow-[0_0_20px_rgba(59,130,246,0.3)]' : 'text-gray-500 hover:text-white'}`}
             >
               <History className="w-4 h-4" /> History
+            </button>
+            <button 
+              onClick={() => { setShowAbout(!showAbout); setShowDiagnostics(false); setShowBench(false); setShowHistory(false); }}
+              className={`px-5 py-2.5 text-[11px] font-black uppercase tracking-widest rounded-xl transition-all flex items-center gap-3 ${showAbout ? 'bg-purple-500 text-black shadow-[0_0_20px_rgba(168,85,247,0.3)]' : 'text-gray-500 hover:text-white'}`}
+            >
+              <Info className="w-4 h-4" /> Intel
             </button>
           </div>
           <button 
@@ -319,6 +327,82 @@ const App: React.FC = () => {
 
       {/* OVERLAY PANELS */}
       <div className="relative">
+        {showAbout && (
+          <div className="absolute inset-0 z-50 glass-panel rounded-[2.5rem] p-12 flex flex-col gap-10 animate-in zoom-in-95 duration-300 overflow-y-auto terminal-scroll">
+            <div className="flex items-center justify-between pb-6 border-b border-gray-800">
+              <h3 className="text-2xl font-black gold-gradient tracking-[0.3em] uppercase flex items-center gap-6">
+                <Info className="w-8 h-8 text-yellow-500" /> Project Intelligence
+              </h3>
+              <button onClick={() => setShowAbout(false)} className="p-3 hover:bg-white/5 rounded-full transition-colors"><X className="w-8 h-8" /></button>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+              <div className="space-y-6">
+                <div className="flex items-center gap-4 text-yellow-500">
+                  <Atom className="w-6 h-6" />
+                  <h4 className="font-black uppercase tracking-widest text-sm">Engine Philosophy</h4>
+                </div>
+                <p className="text-sm text-gray-400 leading-relaxed font-serif italic">
+                  Axiom Prime is not a calculator; it is a traversal engine for universal mathematical invariants. By identifying the underlying symmetries of a problem, it reduces infinite complexity to deterministic proofs.
+                </p>
+              </div>
+
+              <div className="space-y-6">
+                <div className="flex items-center gap-4 text-blue-500">
+                  <Workflow className="w-6 h-6" />
+                  <h4 className="font-black uppercase tracking-widest text-sm">Logic Stack</h4>
+                </div>
+                <ul className="space-y-3 text-[11px] font-mono text-gray-500 uppercase">
+                  <li className="flex items-center gap-3"><ChevronRight className="w-3 h-3 text-blue-500" /> Polynomial Manifold Reduction</li>
+                  <li className="flex items-center gap-3"><ChevronRight className="w-3 h-3 text-blue-500" /> Frobenius Denomination Bounds</li>
+                  <li className="flex items-center gap-3"><ChevronRight className="w-3 h-3 text-blue-500" /> S_n Subset Intersection Invariant</li>
+                  <li className="flex items-center gap-3"><ChevronRight className="w-3 h-3 text-blue-500" /> Modular Congruence Engines</li>
+                </ul>
+              </div>
+
+              <div className="space-y-6">
+                <div className="flex items-center gap-4 text-purple-500">
+                  <Cpu className="w-6 h-6" />
+                  <h4 className="font-black uppercase tracking-widest text-sm">Quantum Fallback</h4>
+                </div>
+                <p className="text-xs text-gray-400 leading-relaxed">
+                  When internal invariants reach an undecidable state, the system engages Gemini 3.0 Pro's High-Reasoning Manifold. This provides high-entropy heuristic analysis and formal proof sketches for unresolved theorems.
+                </p>
+              </div>
+
+              <div className="col-span-full grid grid-cols-1 md:grid-cols-2 gap-10 pt-10 border-t border-gray-900">
+                <div className="bg-black/40 p-8 rounded-[2rem] border border-gray-800 space-y-4">
+                  <div className="flex items-center gap-4 text-green-500">
+                    <Camera className="w-6 h-6" />
+                    <h5 className="font-black uppercase tracking-widest text-[11px]">Optic Manifold (Vision)</h5>
+                  </div>
+                  <p className="text-[11px] text-gray-600 uppercase tracking-tighter leading-relaxed">
+                    Visual processing engine capable of parsing handwritten proofs and geometric diagrams. Input is normalized and mapped to known axiomatic schemas for identification.
+                  </p>
+                </div>
+
+                <div className="bg-black/40 p-8 rounded-[2rem] border border-gray-800 space-y-4">
+                  <div className="flex items-center gap-4 text-red-500">
+                    <Mic className="w-6 h-6" />
+                    <h5 className="font-black uppercase tracking-widest text-[11px]">Acoustic Feed (Voice)</h5>
+                  </div>
+                  <p className="text-[11px] text-gray-600 uppercase tracking-tighter leading-relaxed">
+                    Live mathematical transcription system allowing for conversational problem statement. Uses real-time latency optimization to ensure continuous deduction flow.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-auto pt-10 flex items-center justify-between text-[10px] font-black uppercase tracking-[0.5em] text-gray-800">
+              <div className="flex items-center gap-6">
+                <ShieldCheck className="w-5 h-5 opacity-20" />
+                <span>Security Protocol: G_TRANSCEND_LEVEL_9</span>
+              </div>
+              <span className="gold-gradient">Consensus Reached // Axiom Primed</span>
+            </div>
+          </div>
+        )}
+
         {showDiagnostics && (
           <div className="absolute inset-0 z-50 glass-panel rounded-[2.5rem] p-8 flex flex-col gap-6 animate-in zoom-in-95 duration-300">
             <div className="flex items-center justify-between pb-4 border-b border-gray-800">
