@@ -7,17 +7,15 @@ export const queryQuantumFallback = async (
   highReasoning: boolean = false,
   base64Image?: string
 ): Promise<SolverResult> => {
-  // Use process.env.API_KEY directly for initialization
   const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
   
-  // Detect if user is asking for a formal proof
   const isProofRequest = problem.toLowerCase().includes('prove') || problem.toLowerCase().includes('proof');
   const effectiveReasoning = highReasoning || isProofRequest;
 
   try {
     const parts: any[] = [
-      { text: `Analyze and attempt to solve or prove this mathematical query. 
-      If it is a formal proof request (like Riemann Hypothesis), provide a structured "Proof Sketch" or "Current State of Proof" following axiomatic principles.
+      { text: `Analyze and attempt to solve or prove this mathematical query using Lumina Logic protocols. 
+      If it is a formal proof request, provide a structured "Proof Sketch" following axiomatic principles.
       Problem/Query: ${problem}` }
     ];
 
@@ -34,9 +32,9 @@ export const queryQuantumFallback = async (
       model: "gemini-3-pro-preview",
       contents: { parts },
       config: {
-        systemInstruction: `You are a world-class theoretical mathematician. 
-        For proofs: Use a formal structure: Theorem Statement, Lemma(s), and a Step-by-Step Proof or Proof Sketch. 
-        For AIMO: Return the integer answer.
+        systemInstruction: `You are Lumina Core, a world-class theoretical mathematician and logic traversal engine. 
+        For proofs: Use a formal structure: Theorem Statement, Lemma(s), and a Step-by-Step Proof Sketch. 
+        For numerical problems: Return the specific integer answer.
         Output MUST be in JSON format with 'answer', 'reasoning', and 'steps'.`,
         responseMimeType: "application/json",
         responseSchema: {
@@ -55,7 +53,6 @@ export const queryQuantumFallback = async (
           },
           required: ["answer", "steps", "reasoning"]
         },
-        // Maximize budget for proof requests
         thinkingConfig: effectiveReasoning ? { thinkingBudget: 32768 } : undefined,
         tools: [{ googleSearch: {} }]
       }
@@ -80,13 +77,13 @@ export const queryQuantumFallback = async (
       answer: json.answer ?? "N/A",
       invariantUsed: InvariantType.QUANTUM_FALLBACK,
       reasoning: json.reasoning,
-      steps: json.steps ?? ["Quantum fallback processed successfully."],
+      steps: json.steps ?? ["Lumina stochastic manifold traversal complete."],
       groundingSources: groundingSources.length > 0 ? groundingSources : undefined,
       logs: [
         {
           timestamp: new Date().toLocaleTimeString(),
           type: 'success',
-          message: isProofRequest ? "Axiomatic Proof Engine successfully engaged." : "Universal Logic resolved high-level query."
+          message: isProofRequest ? "Lumina Proof Manifold successfully engaged." : "Lumina stochastic manifold resolved query."
         }
       ]
     };
@@ -94,12 +91,12 @@ export const queryQuantumFallback = async (
     return {
       answer: null,
       invariantUsed: null,
-      steps: ["Deduction engine failed to reach a conclusion."],
+      steps: ["Lumina traversal engine failed to reach a consensus."],
       logs: [
         {
           timestamp: new Date().toLocaleTimeString(),
           type: 'error',
-          message: `Deduction Error: ${error instanceof Error ? error.message : 'Unknown'}`
+          message: `Deduction Failure: ${error instanceof Error ? error.message : 'Unknown'}`
         }
       ]
     };

@@ -53,3 +53,12 @@ export interface TestSuiteReport {
   failCount: number;
   results: TestResult[];
 }
+
+export interface UserRequest {
+  id: string;
+  timestamp: string;
+  title: string;
+  category: 'Deduction Logic' | 'UI/UX' | 'Optic Feed' | 'General';
+  description: string;
+  status: 'Pending' | 'Researching' | 'Validated';
+}

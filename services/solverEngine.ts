@@ -74,8 +74,8 @@ export class AxiomPrimeSolver {
         `Final Answer: P(0) + Q(0) = ${total}`
       ],
       logs: [
-        this.createLog(`Axiom Prime: Polynomial invariant triggered for coeffs ${a1}, ${a2}`),
-        this.createLog(`Result calculated: ${total}`, 'success')
+        this.createLog(`Lumina: Polynomial invariant matched for coeffs ${a1}, ${a2}`),
+        this.createLog(`Deduction successful: ${total}`, 'success')
       ]
     };
   }
@@ -105,7 +105,7 @@ export class AxiomPrimeSolver {
         `${a} * ${b} - ${a} - ${b} = ${result}`
       ],
       logs: [
-        this.createLog(`Axiom Prime: Diophantine engine detected Frobenius condition`),
+        this.createLog(`Lumina: Diophantine engine detected Frobenius condition`),
         this.createLog(`Answer found: ${result}`, 'success')
       ]
     };
@@ -122,11 +122,9 @@ export class AxiomPrimeSolver {
 
     let n: number | null = null;
     
-    // Support S_n, S_20, n = 20, or S{20}
     const nMatch = p.match(/s(?:_|\[|\{)?(\d+)(?:\]|\})?|n\s*=\s*(\d+)/i);
     if (nMatch) n = parseInt(nMatch[1] || nMatch[2]);
 
-    // Support sets like {1, 2, ..., 10} or {1, 2, ..., n}
     if (n === null) {
       const setMatch = problem.match(/\{[\s\d,\.\w]+\}/);
       if (setMatch) {
@@ -137,7 +135,6 @@ export class AxiomPrimeSolver {
       }
     }
 
-    // Support phrasings like "set of 10 elements", "set of 5 items"
     if (n === null) {
       const elementMatch = p.match(/set\s+(?:of\s+)?(\d+)\s+(?:elements|items|members|runners)/i);
       if (elementMatch) n = parseInt(elementMatch[1]);
@@ -156,8 +153,8 @@ export class AxiomPrimeSolver {
         `Calculation: ${n} * 4^(${n}-1) = ${result}`
       ],
       logs: [
-        this.createLog(`Axiom Prime: Combinatorial solver identified subset sum for n=${n}`),
-        this.createLog(`Combinatorial identity resolved.`, 'success')
+        this.createLog(`Lumina: Combinatorial engine resolved subset sum for n=${n}`),
+        this.createLog(`Combinatorial identity confirmed.`, 'success')
       ]
     };
   }
@@ -193,8 +190,8 @@ export class AxiomPrimeSolver {
         `Calculated sum: ${total}`
       ],
       logs: [
-        this.createLog(`Axiom Prime: Processing repeating decimal invariant for d=${d}`),
-        this.createLog(`Period summation successful.`, 'success')
+        this.createLog(`Lumina: Processing repeating decimal invariant for d=${d}`),
+        this.createLog(`Period summation verified.`, 'success')
       ]
     };
   }
@@ -229,8 +226,8 @@ export class AxiomPrimeSolver {
         `Result: ${result}`
       ],
       logs: [
-        this.createLog(`Axiom Prime: Modular engine solving exponentiation...`),
-        this.createLog(`Modular congruence established.`, 'success')
+        this.createLog(`Lumina: Modular engine established congruence...`),
+        this.createLog(`Modular value resolved.`, 'success')
       ]
     };
   }
@@ -244,14 +241,12 @@ export class AxiomPrimeSolver {
     
     if (!triggers.some(t => p.includes(t))) return null;
 
-    // Enhanced radius extraction: Support "radii are 3, 4, 5", "r1=3, r2=4, r3=5", "radii 3, 4, and 5"
     const radiusMatches = Array.from(problem.matchAll(/(?:radius|radii|r\d+)\s*(?:of|is|are|=)?\s*(\d+)/gi));
     let radii: number[] = [];
     
     if (radiusMatches.length >= 3) {
       radii = radiusMatches.map(m => parseInt(m[1]));
     } else {
-      // Look for sequences of numbers often used for radii
       const nums = (problem.match(/\b\d+\b/g) || []).map(Number);
       radii = nums.filter(n => n > 0 && n < 1000).sort((a, b) => a - b).slice(0, 3);
     }
@@ -275,8 +270,8 @@ export class AxiomPrimeSolver {
         `Calculated Area: ${area.toFixed(4)}`
       ],
       logs: [
-        this.createLog(`Axiom Prime: Geometric engine calculating center manifold area`),
-        this.createLog(`Geometry resolved.`, 'success')
+        this.createLog(`Lumina: Geometric engine calculating center manifold area`),
+        this.createLog(`Geometry verified.`, 'success')
       ]
     };
   }
@@ -304,7 +299,7 @@ export class AxiomPrimeSolver {
       answer: 0,
       invariantUsed: null,
       steps: ["No internal invariant matched the problem description."],
-      logs: [this.createLog(`Axiom Prime: No invariant matched. Terminating local engines.`, 'warning')]
+      logs: [this.createLog(`Lumina: Deterministic engines bypassed. Engaging stochastic manifold.`, 'warning')]
     };
   }
 }

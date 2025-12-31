@@ -1,6 +1,6 @@
 {
-  "name": "Axiom Prime: Quantum Invariant Engine",
-  "description": "A high-precision math solving engine specializing in Polynomial, Combinatorial, Diophantine, and Geometric invariants, enhanced with Gemini-powered problem parsing, Live Voice interaction, and Vision-based analysis.",
+  "name": "Lumina Invariant Core",
+  "description": "A sophisticated mathematical traversal engine utilizing hybrid deterministic invariants and Gemini-powered stochastic reasoning.",
   "requestFramePermissions": [
     "microphone",
     "camera"
