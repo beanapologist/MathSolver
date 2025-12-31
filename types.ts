@@ -10,6 +10,14 @@ export enum InvariantType {
   LIVE_TRANSCRIPTION = 'Live Voice Sync'
 }
 
+export interface ProjectFile {
+  id: string;
+  name: string;
+  content: string;
+  type: 'proof' | 'scratch' | 'invariant' | 'benchmark';
+  lastModified: number;
+}
+
 export interface GroundingSource {
   title: string;
   uri: string;
