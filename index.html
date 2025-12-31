@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LUMINA INVARIANT // Logic Traversal Engine</title>
+  <title>LUMINA // Research IDE</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Inter:wght@300;400;500;600;700;800&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400&display=swap" rel="stylesheet">
   <script>
@@ -13,10 +13,19 @@
       theme: {
         extend: {
           colors: {
-            gold: {
-              DEFAULT: '#ca8a04',
-              light: '#fde047',
-              dark: '#854d0e',
+            research: {
+              DEFAULT: '#0ea5e9',
+              light: '#7dd3fc',
+              dark: '#0369a1',
+            }
+          },
+          animation: {
+            'flow-line': 'flow 2s linear infinite',
+          },
+          keyframes: {
+            flow: {
+              '0%': { strokeDashoffset: '20' },
+              '100%': { strokeDashoffset: '0' },
             }
           }
         }
@@ -25,23 +34,23 @@
   </script>
   <style>
     :root {
-      --gold-primary: #ca8a04;
-      --gold-light: #fde047;
-      --app-bg: #ffffff;
+      --research-primary: #0ea5e9;
+      --research-light: #7dd3fc;
+      --app-bg: #f8fafc;
       --app-text: #0f172a;
-      --card-bg: rgba(248, 250, 252, 0.9);
-      --border-color: rgba(202, 138, 4, 0.25);
-      --panel-shadow: 0 8px 32px rgba(202, 138, 4, 0.1);
-      --terminal-bg: rgba(241, 245, 249, 0.8);
+      --card-bg: rgba(255, 255, 255, 0.9);
+      --border-color: rgba(14, 165, 233, 0.1);
+      --panel-shadow: 0 4px 20px rgba(14, 165, 233, 0.05);
+      --terminal-bg: #f1f5f9;
     }
 
     .dark {
-      --app-bg: #030303;
-      --app-text: #f3f4f6;
-      --card-bg: rgba(10, 10, 10, 0.8);
-      --border-color: rgba(202, 138, 4, 0.15);
-      --panel-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
-      --terminal-bg: rgba(0, 0, 0, 0.4);
+      --app-bg: #020617;
+      --app-text: #f1f5f9;
+      --card-bg: rgba(15, 23, 42, 0.8);
+      --border-color: rgba(14, 165, 233, 0.15);
+      --panel-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+      --terminal-bg: #000000;
     }
 
     body {
@@ -63,19 +72,17 @@
     .font-mono { font-family: 'Fira Code', monospace; }
     .font-serif { font-family: 'Merriweather', serif; }
 
-    .gold-gradient {
-      background: linear-gradient(135deg, #fef08a 0%, #ca8a04 50%, #854d0e 100%);
+    .research-gradient {
+      background: linear-gradient(135deg, #7dd3fc 0%, #0ea5e9 50%, #0369a1 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
     }
 
     .glass-panel {
       background: var(--card-bg);
-      backdrop-filter: blur(12px);
+      backdrop-filter: blur(16px);
       border: 1px solid var(--border-color);
       box-shadow: var(--panel-shadow);
-      transition: background 0.3s ease, border 0.3s ease, box-shadow 0.3s ease;
     }
 
     .terminal-scroll::-webkit-scrollbar {
@@ -83,24 +90,33 @@
       height: 4px;
     }
     .terminal-scroll::-webkit-scrollbar-thumb {
-      background: rgba(202, 138, 4, 0.2);
+      background: rgba(14, 165, 233, 0.2);
       border-radius: 10px;
     }
 
-    .hud-border {
-      position: relative;
+    .clean-border {
+      border: 1px solid var(--border-color);
     }
-    .hud-border::before, .hud-border::after {
-      content: "";
-      position: absolute;
-      width: 10px;
-      height: 10px;
-      border-color: var(--gold-primary);
-      border-style: solid;
-      opacity: 0.5;
+
+    .logic-diamond {
+      width: 100px;
+      height: 100px;
+      transform: rotate(45deg);
+      border: 2px solid var(--research-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(14, 165, 233, 0.1);
     }
-    .hud-border::before { top: -1px; left: -1px; border-width: 2px 0 0 2px; }
-    .hud-border::after { bottom: -1px; right: -1px; border-width: 0 2px 2px 0; }
+    .logic-diamond-content {
+      transform: rotate(-45deg);
+      text-align: center;
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+      padding: 10px;
+      color: var(--research-primary);
+    }
   </style>
 <script type="importmap">
 {

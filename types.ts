@@ -1,18 +1,18 @@
 
 export enum InvariantType {
-  POLYNOMIAL = 'Polynomial (Linear Reduction)',
-  COMBINATORIAL = 'Combinatorial (Subset S_n)',
-  DIOPHANTINE = 'Diophantine (Frobenius)',
-  REPEATING_DECIMAL = 'Repeating Decimal',
-  MODULAR = 'Modular Arithmetic',
-  GEOMETRIC = 'Geometric',
-  NUMBER_THEORY = 'Eulerian Number Theory (Totient/Lucas)',
-  ROOT_DYNAMICS = 'Root Dynamics (Newton Sums)',
-  SPECTRAL_ZETA = 'Spectral Zeta Analysis (Riemann/Euler Score)',
-  SEQUENCES = 'Sequence Analysis (Arithmetic/Geometric)',
-  FUNCTIONAL_EQ = 'Functional Equation (Cauchy/Shifted)',
-  QUANTUM_FALLBACK = 'Quantum Fallback (AI)',
-  LIVE_TRANSCRIPTION = 'Live Voice Sync'
+  POLYNOMIAL = 'Polynomial Linear Reduction',
+  COMBINATORIAL = 'Combinatorial Subset Identity',
+  DIOPHANTINE = 'Frobenius Boundary Analysis',
+  REPEATING_DECIMAL = 'Repeating Decimal Periodicity',
+  MODULAR = 'Modular Congruence',
+  GEOMETRIC = 'Geometric Vertex Analysis',
+  NUMBER_THEORY = 'Eulerian Number Theory',
+  ROOT_DYNAMICS = 'Root-Dynamic Newton Sums',
+  SPECTRAL_ZETA = 'Spectral Zeta Convergence',
+  SEQUENCES = 'Sequence Progression Analysis',
+  FUNCTIONAL_EQ = 'Functional Equation Synthesis',
+  QUANTUM_FALLBACK = 'Stochastic Deduction (AI)',
+  LIVE_TRANSCRIPTION = 'Acoustic Feed Sync'
 }
 
 export interface ProjectFile {
