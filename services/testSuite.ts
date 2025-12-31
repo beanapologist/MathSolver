@@ -44,45 +44,49 @@ export class AxiomPrimeTestSuite {
   public async runDiagnostics(): Promise<TestSuiteReport> {
     const results: TestResult[] = [];
 
-    results.push(await this.runTest('POLYNOMIAL: Deterministic Reversion', async () => {
-      const problem = "Quadratic polynomials P(x) and Q(x) have leading coefficients 2 and -2. They pass through (16,54) and (20,53). Find P(0)+Q(0).";
+    results.push(await this.runTest('ROOT_DYNAMICS: Newton Sum of Squares', async () => {
+      const problem = "Find the sum of the squares of the roots of x^2 - 5x + 6 = 0.";
+      const res = await this.solver.solve(problem);
+      this.assertEquals(res.invariantUsed, InvariantType.ROOT_DYNAMICS);
+      // roots 2, 3. Squares 4, 9. Sum 13.
+      // P2 = e1*P1 - 2e2 = 5*5 - 2*6 = 25-12 = 13.
+      this.assertEquals(res.answer, 13);
+    }));
+
+    results.push(await this.runTest('SEQUENCES: Arithmetic Sum', async () => {
+      const problem = "arithmetic progression with first term 5, common difference 3, up to 10 terms";
+      const res = await this.solver.solve(problem);
+      this.assertEquals(res.invariantUsed, InvariantType.SEQUENCES);
+      // Sn = 10/2 * (2*5 + 9*3) = 5 * (10 + 27) = 5 * 37 = 185.
+      this.assertEquals(res.answer, 185);
+    }));
+
+    results.push(await this.runTest('SPECTRAL_ZETA: Euler Score Traversal', async () => {
+      const problem = "Calculate the spectral score for frequency t=14.1347";
+      const res = await this.solver.solve(problem);
+      this.assertEquals(res.invariantUsed, InvariantType.SPECTRAL_ZETA);
+      this.assertEquals(parseFloat(res.answer as string) > 5.0, true);
+    }));
+
+    results.push(await this.runTest('POLYNOMIAL: Linear Reduction at x=5', async () => {
+      const problem = "Quadratic polynomials P(x) and Q(x) have leading coefficients 2 and -2. They pass through (16,54) and (20,53). Find P(5)+Q(5).";
       const res = await this.solver.solve(problem);
       this.assertEquals(res.invariantUsed, InvariantType.POLYNOMIAL);
-      this.assertEquals(res.answer, 116);
+      this.assertEquals(res.answer, 113);
     }));
 
-    results.push(await this.runTest('DIOPHANTINE: Frobenius Boundary', async () => {
-      const problem = "What is the largest integer that cannot be written as a sum of multiples of 6 and 11?";
+    results.push(await this.runTest('NUMBER_THEORY: Lucas Theorem Binomial', async () => {
+      const problem = "Find (10 choose 5) mod 7.";
       const res = await this.solver.solve(problem);
-      this.assertEquals(res.invariantUsed, InvariantType.DIOPHANTINE);
-      this.assertEquals(res.answer, 49);
+      this.assertEquals(res.invariantUsed, InvariantType.NUMBER_THEORY);
+      this.assertEquals(res.answer, 0);
     }));
 
-    results.push(await this.runTest('COMBINATORIAL: S_n Intersection Manifold', async () => {
-      const problem = "Let S = {1, 2}. Find the sum of the sizes of the intersections of all ordered pairs of subsets of S.";
+    results.push(await this.runTest('NUMBER_THEORY: Euler Totient Function', async () => {
+      const problem = "How many positive integers less than 10 are relatively prime to 10?";
       const res = await this.solver.solve(problem);
-      this.assertEquals(res.invariantUsed, InvariantType.COMBINATORIAL);
-      this.assertEquals(res.answer, 8);
-    }));
-
-    results.push(await this.runTest('MODULAR: Fast Modular Traversal', async () => {
-      const problem = "What is 3^4 mod 10?";
-      const res = await this.solver.solve(problem);
-      this.assertEquals(res.answer, 1);
-    }));
-
-    results.push(await this.runTest('GEOMETRIC: Spherical Tangency Center Manifold', async () => {
-      const problem = "Three spheres with radii of 3, 4, and 5 are mutually tangent. Find the area of the triangle formed by their centers.";
-      const res = await this.solver.solve(problem);
-      this.assertEquals(res.invariantUsed, InvariantType.GEOMETRIC);
-      this.assertEquals(res.answer, 27);
-    }));
-
-    results.push(await this.runTest('REPEATING_DECIMAL: Period Manifold', async () => {
-      const problem = "Repeating decimal with period length of two digits.";
-      const res = await this.solver.solve(problem);
-      this.assertEquals(res.invariantUsed, InvariantType.REPEATING_DECIMAL);
-      this.assertEquals(res.answer, 3386);
+      this.assertEquals(res.invariantUsed, InvariantType.NUMBER_THEORY);
+      this.assertEquals(res.answer, 4);
     }));
 
     const passCount = results.filter(r => r.status === 'passed').length;

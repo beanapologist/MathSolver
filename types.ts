@@ -6,6 +6,11 @@ export enum InvariantType {
   REPEATING_DECIMAL = 'Repeating Decimal',
   MODULAR = 'Modular Arithmetic',
   GEOMETRIC = 'Geometric',
+  NUMBER_THEORY = 'Eulerian Number Theory (Totient/Lucas)',
+  ROOT_DYNAMICS = 'Root Dynamics (Newton Sums)',
+  SPECTRAL_ZETA = 'Spectral Zeta Analysis (Riemann/Euler Score)',
+  SEQUENCES = 'Sequence Analysis (Arithmetic/Geometric)',
+  FUNCTIONAL_EQ = 'Functional Equation (Cauchy/Shifted)',
   QUANTUM_FALLBACK = 'Quantum Fallback (AI)',
   LIVE_TRANSCRIPTION = 'Live Voice Sync'
 }
